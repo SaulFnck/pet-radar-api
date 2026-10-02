@@ -5,5 +5,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3000);
+  console.log('Hola como estas'); //Prueba para cargar imagen
 }
 bootstrap();

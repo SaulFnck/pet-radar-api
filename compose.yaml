@@ -1,4 +1,25 @@
 services:
+  api:
+    image: pet-radar-api:latest
+    container_name: PetRadarApi
+    environment:
+      - MAILER_SERVICE=${MAILER_SERVICE}
+      - MAILER_USER=${MAILER_USER}
+      - MAILER_TOKEN=${MAILER_TOKEN}
+      - MAPBOX_TOKEN=${MAPBOX_TOKEN}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_USER=${DB_USER}
+      - DB_PORT=${DB_PORT}
+      - REDIS_HOST=${REDIS_HOST}
+
+REDIS_PORT:
+    ports:
+      - 3001:3000
+    depends_on:
+      - postgres
+
   postgres:
     image: postgis/postgis:16-master
     container_name: 511-petradar-db
@@ -9,7 +30,7 @@ services:
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - postgres_data_db:/var/lib/postgresql
- 
+
   redis:
     image: redis
     container_name: 511-petradar-redis
@@ -17,7 +38,7 @@ services:
       - 6379:6379
     volumes:
       - redis_data_db:/data
- 
+
 volumes:
   postgres_data_db:
   redis_data_db:
