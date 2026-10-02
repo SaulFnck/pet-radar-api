@@ -12,3 +12,7 @@ jobs:
         name: Clonar repositorio
       - name: Construir imagen
         run: docker build -t sauldiazfonseca/pet-radar-api:latest .
+      - name: Docker login
+        run: docker login -u ${{secrets.DOCKER_USER}} -P ${{secrets.DOCKER_PASSWORD}}
+      - name: Docker Push
+        run: docker push sauldiazfonseca/pet-radar-api:latest
